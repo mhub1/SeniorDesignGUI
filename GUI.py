@@ -53,14 +53,15 @@ class Fullscreen_Example:
 
     def read_every_second(self):
         while(True):
-            inputarr = sys.stdin.readline()
             try:
+                inputarr = sys.stdin.readline()
                 inputarr = inputarr.rstrip('\n').split(',')
                 self.speed = int(inputarr[0])
                 self.p1.set_value(int(self.speed))
                 self.rpm = int(inputarr[1])
                 self.p2.set_value(int(self.rpm))
-            except:
+            except Exception as e:
+                print(e)
                 continue
 if __name__ == '__main__':
     app = Fullscreen_Example()
