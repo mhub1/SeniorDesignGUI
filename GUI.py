@@ -1,4 +1,6 @@
 from tkinter import *
+from threading import *
+import sys
 import tkinter as tk
 from tkinter.font import Font
 from tkinter import messagebox
@@ -37,7 +39,8 @@ class Fullscreen_Example:
         self.p2.pack(side=tk.RIGHT)
         
 
-        self.read_every_second()
+        t1 = Thread(target = self.read_every_second)
+        t1.start()
         self.window.mainloop()
 
     def toggleFullScreen(self, event):
@@ -49,11 +52,16 @@ class Fullscreen_Example:
         self.window.attributes("-fullscreen", self.fullScreenState)
 
     def read_every_second(self):
-        self.speed = random.randint(0,120)
-        self.p1.set_value(int(self.speed))
-        self.rpm = random.randint(0,6000)
-        self.p2.set_value(int(self.rpm))
-        self.window.after(100, self.read_every_second)
-
+        while(True):
+            try:
+                inputarr = sys.stdin.readline()
+                inputarr = inputarr.rstrip('\n').split(',')
+                self.speed = int(inputarr[0])
+                self.p1.set_value(int(self.speed))
+                self.rpm = int(inputarr[1])
+                self.p2.set_value(int(self.rpm))
+            except Exception as e:
+                print(e)
+                continue
 if __name__ == '__main__':
     app = Fullscreen_Example()
