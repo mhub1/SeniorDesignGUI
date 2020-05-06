@@ -19,6 +19,9 @@ class Fullscreen_Example:
         self.window.tk.call('wm', 'iconphoto', self.window._w, a5)
         self.window.title("Pi-HUD")
         self.window.configure(bg='black')
+        self.voicestring = StringVar()
+        label = Label(textvariable=self.voicestring)
+        label.pack()
         self.rpm = 1000
         self.speed = 0
         self.p1 = gaugelib.DrawGauge3(
@@ -60,6 +63,7 @@ class Fullscreen_Example:
                 self.p1.set_value(int(self.speed))
                 self.rpm = int(inputarr[1])
                 self.p2.set_value(int(self.rpm))
+                self.voicestring.set(inputarr[2])
             except Exception as e:
                 print(e)
                 continue
